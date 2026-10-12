@@ -1,0 +1,30 @@
+{
+  "name": "cpsrf-srf-v4-backend",
+  "version": "0.2.0-phase1.1",
+  "description": "CPSRF/SRF V4 backend - Phase 1: auth, MFA, RBAC, audit logging, security foundation",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/unit/*.test.js",
+    "migrate": "node src/db/migrate.js",
+    "seed": "node src/db/seed.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "cookie-parser": "^1.4.6",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.4.0",
+    "csrf-csrf": "^3.0.3",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
+  },
+  "notes": {
+    "crypto_dependencies": "Password hashing (scrypt), TOTP (RFC 6238), and JWT (HS256) are implemented in src/security/crypto/ using ONLY Node.js built-in modules (node:crypto) with zero external dependencies. This was a deliberate choice: it lets the auth/MFA/token core run and be unit-tested without any package install, and it removes several third-party packages from the trust boundary around credential handling. They are drop-in replaceable with argon2/otplib/jsonwebtoken if your team prefers audited libraries with wider community usage - see docs/PHASE1_HANDOFF.md."
+  }
+}
